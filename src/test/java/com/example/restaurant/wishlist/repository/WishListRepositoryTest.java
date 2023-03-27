@@ -40,10 +40,23 @@ public class WishListRepositoryTest {
     }
     @Test
     public void findByIdTest() {
+        var wishListEntity = create();
+        wishListRepository.save(wishListEntity);
+        var expected = wishListRepository.findById(1);
+
+        Assertions.assertEquals(true, expected.isPresent());
+        Assertions.assertEquals(1,expected.get().getIndex());
 
     }
     @Test
     public void deleteTest() {
+        var wishListEntity = create();
+        wishListRepository.save(wishListEntity);
+        wishListRepository.deleteById(1);
+        int count = wishListRepository.listAll().size();
+
+        Assertions.assertEquals(0, count);
+
 
     }
     @Test
