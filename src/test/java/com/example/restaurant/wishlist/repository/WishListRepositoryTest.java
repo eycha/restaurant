@@ -61,6 +61,15 @@ public class WishListRepositoryTest {
     }
     @Test
     public void listAllTest() {
+        var wishListEntity1 = create();
+        wishListRepository.save(wishListEntity1);
+
+        var wishListEntity2 = create();
+        wishListRepository.save(wishListEntity2);
+
+        int count = wishListRepository.listAll().size();
+        Assertions.assertEquals(2, count);
+
 
     }
 }
