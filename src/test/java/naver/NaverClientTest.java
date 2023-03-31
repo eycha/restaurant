@@ -16,7 +16,7 @@ public class NaverClientTest {
         var search = new SearchLocalReq();
         search.setQuery("갈비집");
 
-        var result = naverClient.localSearch(search);
+        var result = naverClient.SearchLocal(search);
         System.out.println(result);
 
     }
