@@ -9,7 +9,7 @@ public class SearchImageReq {
     private String query = "";
     private int display = 1;
     private int start = 1;
-    private String sort = "random";
+    private String sort = "sim";
 
     private String filter = "all";
 
