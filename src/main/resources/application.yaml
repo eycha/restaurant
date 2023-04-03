@@ -6,3 +6,8 @@ naver:
   client:
     id: q6Og_Ru9h5FJ3j4_HRDq
     secret: 6ydWOvFjqu
+
+spring:
+  mvc:
+    pathmatch:
+      matching-strategy: ant_path_matcher
