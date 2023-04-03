@@ -9,6 +9,9 @@ import com.example.restaurant.wishlist.entity.repository.WishListRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 @Service
 @RequiredArgsConstructor
 public class WishListService {
@@ -35,7 +38,7 @@ public class WishListService {
                 result.setTitle(localItem.getTitle());
                 result.setCategory(localItem.getCategory());
                 result.setAddress(localItem.getAddress());
-                result.setReadAddress(localItem.getRoadAddress());
+                result.setRoadAddress(localItem.getRoadAddress());
                 result.setHomePageLink(localItem.getLink());
                 result.setImageLink(imageItem.getLink());
 
@@ -58,7 +61,7 @@ public class WishListService {
         entity.setTitle(wishListDto.getTitle());
         entity.setCategory(wishListDto.getCategory());
         entity.setAddress(wishListDto.getAddress());
-        entity.setRoadAddress(wishListDto.getReadAddress());
+        entity.setRoadAddress(wishListDto.getRoadAddress());
         entity.setHomePageLink(wishListDto.getHomePageLink());
         entity.setImageLink(wishListDto.getImageLink());
         entity.setVisit(wishListDto.isVisit());
@@ -73,7 +76,7 @@ public class WishListService {
         dto.setTitle(wishListEntity.getTitle());
         dto.setCategory(wishListEntity.getCategory());
         dto.setAddress(wishListEntity.getAddress());
-        dto.setReadAddress(wishListEntity.getRoadAddress());
+        dto.setRoadAddress(wishListEntity.getRoadAddress());
         dto.setHomePageLink(wishListEntity.getHomePageLink());
         dto.setImageLink(wishListEntity.getImageLink());
         dto.setVisit(wishListEntity.isVisit());
@@ -81,5 +84,23 @@ public class WishListService {
         dto.setLastVisitDate(wishListEntity.getLastVisitDate());
         return dto;
 
+    }
+
+    public List<WishListDto> findAll() {
+       return wishListRepository.findAll().stream().map(it->entityToDto(it)).collect(Collectors.toList());
+    }
+
+    public void delete(int index) {
+        wishListRepository.deleteById(index);
+
+    }
+    public void addVisit(int index) {
+        var wishItem = wishListRepository.findById(index);
+        if(wishItem.isPresent()) {
+            var item = wishItem.get();
+
+            item.setVisit(true);
+            item.setVisitCount(item.getVisitCount()+1);
+        }
     }
 }
