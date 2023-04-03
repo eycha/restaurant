@@ -20,7 +20,7 @@ public class NaverClientTest {
         var result = naverClient.searchLocal(search);
         System.out.println(result);
 
-        Assertions.assertNotNull(result.getCategory());
+        Assertions.assertNotNull(result.getItems().stream().findFirst().get().getCategory());
 
     }
 }
